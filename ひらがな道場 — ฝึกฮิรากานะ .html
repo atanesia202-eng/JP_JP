@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="th"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ひらがな道場 — ฝึกฮิรากานะ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Klee+One:wght@600&family=Zen+Maru+Gothic:wght@500;700&family=Noto+Sans+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6efe0;--card:#fffaf0;--ink:#2b2420;--red:#c8102e;--mut:#8a7d6e;--line:#d9ccb4;--ok:#2e7d4f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1916;--card:#2a241f;--ink:#f1e8d8;--red:#ee4d62;--mut:#a89a88;--line:#443b33;--ok:#5cc489}}
+:root[data-theme="dark"]{--bg:#1d1916;--card:#2a241f;--ink:#f1e8d8;--red:#ee4d62;--mut:#a89a88;--line:#443b33;--ok:#5cc489}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans Thai',sans-serif;
+background-image:radial-gradient(circle at 1px 1px,var(--line) 1px,transparent 0);background-size:22px 22px}
+main{max-width:640px;margin:0 auto;padding:20px 16px 60px}
+h1{font-family:'Noto Serif JP',serif}
+.big,.jp{font-family:'Klee One','Zen Maru Gothic','Hiragino Maru Gothic ProN','Yu Gothic',sans-serif;font-weight:600}
+header{text-align:center;padding:18px 0 8px}
+header h1{margin:0;font-size:2rem;letter-spacing:.1em}
+header .sun{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--red);margin-right:8px}
+header p{color:var(--mut);margin:6px 0 0;font-size:1.1rem}
+.lv{display:flex;gap:14px;align-items:center;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--red);border-radius:6px;padding:12px 14px;margin:10px 0;cursor:pointer;color:var(--ink);font:inherit}
+.lv{cursor:pointer}.lv:hover{transform:translateX(3px)}
+.lv b{font-family:'Noto Serif JP',serif;font-size:1.6rem;color:var(--red);min-width:34px}
+.lv strong{font-size:1.2rem}.lv span{display:block;font-size:1rem;color:var(--mut);margin-top:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px 18px;text-align:center;box-shadow:0 3px 0 var(--line)}
+.big{font-size:5.2rem;line-height:1.1;margin:10px 0}.big.s{font-size:1.9rem;line-height:1.5}
+.sub{color:var(--mut);margin-bottom:12px;min-height:1.4em;font-size:1.2rem}
+input{width:100%;max-width:300px;font-size:1.4rem;text-align:center;padding:10px;border:2px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+input:focus{outline:none;border-color:var(--red)}
+button.b{background:var(--red);color:#fff;border:0;border-radius:8px;padding:12px 26px;font:inherit;font-size:1.15rem;margin:12px 4px 0;cursor:pointer}
+button.b.g{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.top{display:flex;justify-content:space-between;color:var(--mut);font-size:1.15rem;margin-bottom:12px}
+.top a{cursor:pointer;color:var(--red)}
+.bar{height:5px;background:var(--line);border-radius:3px;margin-bottom:14px}.bar i{display:block;height:100%;background:var(--red);border-radius:3px}
+#fb{min-height:2.2em;margin-top:10px;font-weight:600;font-size:1.3rem}.good{color:var(--ok)}.bad{color:var(--red)}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0}
+.cell{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 2px}
+.cell .jp{font-size:2.4rem}.cell small{color:var(--ink);display:block;font-size:1.25rem;font-weight:600;margin-top:2px}.cell .bs{display:block;margin-top:6px;padding-top:6px;border-top:1px dashed var(--line);font-size:1rem;color:var(--mut)}.cell .bs b{color:var(--red)}
+canvas{width:260px;height:260px;max-width:100%;border:2px solid var(--line);border-radius:8px;background:var(--bg);touch-action:none;margin:6px auto;display:block;
+background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:50% 50%;background-position:center}
+.note{text-align:left;background:var(--bg);border-left:4px solid var(--red);padding:12px 14px;border-radius:4px;font-size:1.1rem;line-height:1.8}.note .jp{font-size:1.5rem}.note .eq{font-size:1.25rem;text-align:center;margin-bottom:6px}.note .eq .jp{font-size:2rem}.note .eq b{color:var(--red)}.note.base{margin:0 0 14px}
+ul{text-align:left;padding-left:22px}
+</style></head><body><main>
+<header><h1><span class="sun"></span>ひらがな道場</h1><p>ฝึกฮิรากานะทีละขั้น · เลือก level ได้เลย</p></header>
+<div id="app"></div></main>
+<script>
+const P=s=>s.split(' ').map(x=>{const[k,r]=x.split(':');return{k,r}});
+const BASIC=[["あ:a い:i う:u え:e お:o","แถว A"],["か:ka き:ki く:ku け:ke こ:ko","แถว K"],["さ:sa し:shi す:su せ:se そ:so","แถว S"],["た:ta ち:chi つ:tsu て:te と:to","แถว T"],["な:na に:ni ぬ:nu ね:ne の:no","แถว N"],["は:ha ひ:hi ふ:fu へ:he ほ:ho","แถว H"],["ま:ma み:mi む:mu め:me も:mo","แถว M"],["や:ya ゆ:yu よ:yo","แถว Y"],["ら:ra り:ri る:ru れ:re ろ:ro","แถว R"],["わ:wa を:wo ん:n","แถว W + N"]].map(g=>({t:g[1],i:P(g[0])}));
+const DAK=[
+["が:ga ぎ:gi ぐ:gu げ:ge ご:go","G (か + ゛)",1,"゛","เต็นเต็น","k","g",""],
+["ざ:za じ:ji ず:zu ぜ:ze ぞ:zo","Z (さ + ゛)",2,"゛","เต็นเต็น","s","z","⚠ <b>し shi + ゛ = じ ji</b> (ไม่ใช่ zi) · <b>す su + ゛ = ず zu</b>"],
+["だ:da ぢ:ji づ:zu で:de ど:do","D (た + ゛)",3,"゛","เต็นเต็น","t","d","⚠ <b>ち chi + ゛ = ぢ ji</b> และ <b>つ tsu + ゛ = づ zu</b> ออกเสียงเหมือน じ / ず (ในชีวิตจริงใช้น้อย)"],
+["ば:ba び:bi ぶ:bu べ:be ぼ:bo","B (は + ゛)",5,"゛","เต็นเต็น","h","b",""],
+["ぱ:pa ぴ:pi ぷ:pu ぺ:pe ぽ:po","P (は + ゜)",5,"゜","มารุ","h","p",""]
+].map(g=>({t:g[1],i:P(g[0]),b:{row:g[2],mk:g[3],mn:g[4],f:g[5],to:g[6],x:g[7]}}));
+const ALL=BASIC.flatMap(g=>g.i),ALLD=DAK.flatMap(g=>g.i);
+const W=s=>s.split('|').map(x=>{const[k,r,t]=x.split(',');return{k,r,t}});
+const VOC=W("あい,ai,รัก|いえ,ie,บ้าน|あお,ao,สีฟ้า|いか,ika,ปลาหมึก|かお,kao,ใบหน้า|きく,kiku,ฟัง|くち,kuchi,ปาก|いけ,ike,สระน้ำ|こえ,koe,เสียง|さかな,sakana,ปลา|すし,sushi,ซูชิ|せかい,sekai,โลก|そら,sora,ท้องฟ้า|たこ,tako,ปลาหมึกยักษ์|つき,tsuki,พระจันทร์|とり,tori,นก|なつ,natsu,ฤดูร้อน|ねこ,neko,แมว|はな,hana,ดอกไม้|ひと,hito,คน|ふく,fuku,เสื้อผ้า|へや,heya,ห้อง|ほし,hoshi,ดาว|みみ,mimi,หู|むし,mushi,แมลง|やま,yama,ภูเขา|ゆき,yuki,หิมะ|よる,yoru,กลางคืน|さくら,sakura,ซากุระ|ほん,hon,หนังสือ");
+const TSU=W("きって,kitte,แสตมป์|ざっし,zasshi,นิตยสาร|がっこう,gakkou,โรงเรียน|にっき,nikki,ไดอารี่|いっぱい,ippai,เต็ม / หลายๆ|ぶっか,bukka,ราคาสินค้า|さっか,sakka,นักเขียน|きっさてん,kissaten,ร้านกาแฟ|せっけん,sekken,สบู่|まって,matte,รอก่อน|ずっと,zutto,ตลอดไป|あさって,asatte,มะรืนนี้|にっぽん,nippon,ญี่ปุ่น|おっと,otto,สามี");
+const SEN=W("おはようございます,ohayou gozaimasu,สวัสดีตอนเช้า|こんにちは,konnichiwa,สวัสดีตอนกลางวัน|こんばんは,konbanwa,สวัสดีตอนเย็น|ありがとう,arigatou,ขอบคุณ|すみません,sumimasen,ขอโทษ / ขอโทษนะคะ|さようなら,sayounara,ลาก่อน|おやすみなさい,oyasuminasai,ราตรีสวัสดิ์|いただきます,itadakimasu,ขอทานนะ|ごちそうさま,gochisousama,ขอบคุณสำหรับอาหาร|ただいま,tadaima,กลับมาแล้ว|おかえりなさい,okaerinasai,ยินดีต้อนรับกลับ|いってきます,ittekimasu,ไปก่อนนะ|いってらっしゃい,itterasshai,เดินทางปลอดภัย|おげんきですか,ogenki desu ka,สบายดีไหม|げんきです,genki desu,สบายดี|わかりません,wakarimasen,ไม่เข้าใจ|わかりました,wakarimashita,เข้าใจแล้ว|おなまえは なんですか,onamae wa nan desu ka,ชื่ออะไร|わたしは たなかです,watashi wa tanaka desu,ฉันชื่อทานากะ|これは なんですか,kore wa nan desu ka,นี่คืออะไร|いくらですか,ikura desu ka,เท่าไหร่|みずを ください,mizu o kudasai,ขอน้ำหน่อย|おてあらいは どこですか,otearai wa doko desu ka,ห้องน้ำอยู่ไหน|おなかが すきました,onaka ga sukimashita,หิวแล้ว|ねむいです,nemui desu,ง่วง|たのしいです,tanoshii desu,สนุก|おいしいです,oishii desu,อร่อย|もういちど おねがいします,mou ichido onegaishimasu,ขอพูดอีกครั้ง|ゆっくり はなして ください,yukkuri hanashite kudasai,ช่วยพูดช้าๆ|にほんごが すこし わかります,nihongo ga sukoshi wakarimasu,เข้าใจภาษาญี่ปุ่นนิดหน่อย");
+SEN.push(...W("おはよう,ohayou,อรุณสวัสดิ์|はじめまして,hajimemashite,ยินดีที่ได้รู้จัก|よろしく おねがいします,yoroshiku onegaishimasu,ฝากตัวด้วย|おひさしぶりです,ohisashiburi desu,ไม่เจอกันนานเลย|おつかれさまです,otsukaresama desu,ขอบคุณที่ทำงานหนัก|おめでとう,omedetou,ยินดีด้วย|どういたしまして,douitashimashite,ไม่เป็นไร (ตอบขอบคุณ)|ごめんなさい,gomennasai,ขอโทษ|だいじょうぶです,daijoubu desu,ไม่เป็นไร / โอเค|おねがいします,onegaishimasu,ขอร้อง / รบกวนด้วย|はい,hai,ใช่ / ครับ ค่ะ|いいえ,iie,ไม่ใช่|そうですね,sou desu ne,นั่นสินะ|そうですか,sou desu ka,อย่างนั้นเหรอ|ほんとうですか,hontou desu ka,จริงเหรอ|すごいですね,sugoi desu ne,เก่งจัง|いいですね,ii desu ne,ดีจังเลย|かわいいですね,kawaii desu ne,น่ารักจัง|たいへんですね,taihen desu ne,ลำบากนะ|しりません,shirimasen,ไม่รู้|わかりますか,wakarimasu ka,เข้าใจไหม|もういちど いって ください,mou ichido itte kudasai,ช่วยพูดอีกครั้ง|ここに かいて ください,koko ni kaite kudasai,ช่วยเขียนตรงนี้|みせて ください,misete kudasai,ขอดูหน่อย|これを ください,kore o kudasai,ขออันนี้|あれは なんですか,are wa nan desu ka,โน่นคืออะไร|それは わたしの ほんです,sore wa watashi no hon desu,นั่นคือหนังสือของฉัน|えきは どこですか,eki wa doko desu ka,สถานีอยู่ไหน|ここは どこですか,koko wa doko desu ka,ที่นี่ที่ไหน|いま なんじですか,ima nanji desu ka,ตอนนี้กี่โมง|あしたは あめです,ashita wa ame desu,พรุ่งนี้ฝนตก|あした いきます,ashita ikimasu,พรุ่งนี้ไป|また あした,mata ashita,เจอกันพรุ่งนี้|あさ はやく おきます,asa hayaku okimasu,ตื่นเช้า|よる おそく ねます,yoru osoku nemasu,นอนดึก|ごはんを たべます,gohan o tabemasu,กินข้าว|みずを のみます,mizu o nomimasu,ดื่มน้ำ|さかなを たべます,sakana o tabemasu,กินปลา|すしが すきです,sushi ga suki desu,ชอบซูชิ|ねこが すきです,neko ga suki desu,ชอบแมว|いぬが すきです,inu ga suki desu,ชอบหมา|にほんが すきです,nihon ga suki desu,ชอบญี่ปุ่น|さくらが きれいです,sakura ga kirei desu,ซากุระสวย|そらが あおいです,sora ga aoi desu,ท้องฟ้าสีฟ้า|やまが たかいです,yama ga takai desu,ภูเขาสูง|これは やすいです,kore wa yasui desu,อันนี้ถูก|これは たかいです,kore wa takai desu,อันนี้แพง|あついです,atsui desu,ร้อน|さむいです,samui desu,หนาว|いそがしいです,isogashii desu,ยุ่ง|つかれました,tsukaremashita,เหนื่อยแล้ว|うれしいです,ureshii desu,ดีใจ|かなしいです,kanashii desu,เศร้า|こわいです,kowai desu,กลัว|あたまが いたいです,atama ga itai desu,ปวดหัว|おなかが いたいです,onaka ga itai desu,ปวดท้อง|ねつが あります,netsu ga arimasu,มีไข้|くすりを ください,kusuri o kudasai,ขอยา|たすけて ください,tasukete kudasai,ช่วยด้วย|みちに まよいました,michi ni mayoimashita,หลงทาง|みぎに まがります,migi ni magarimasu,เลี้ยวขวา|ひだりに まがります,hidari ni magarimasu,เลี้ยวซ้าย|あるいて いきます,aruite ikimasu,เดินไป|いえに かえります,ie ni kaerimasu,กลับบ้าน|がっこうに いきます,gakkou ni ikimasu,ไปโรงเรียน|ほんを よみます,hon o yomimasu,อ่านหนังสือ|てがみを かきます,tegami o kakimasu,เขียนจดหมาย|おんがくを ききます,ongaku o kikimasu,ฟังเพลง|ともだちと あそびます,tomodachi to asobimasu,เล่นกับเพื่อน|ありがとうございます,arigatou gozaimasu,ขอบคุณมาก"));
+const $=id=>document.getElementById(id),app=$('app');
+const shuf=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+const norm=s=>s.toLowerCase().replace(/[\s'’\-.,?]/g,'').replace(/shi/g,'si').replace(/chi/g,'ti').replace(/tsu/g,'tu').replace(/fu/g,'hu').replace(/ji/g,'zi').replace(/di/g,'zi').replace(/du/g,'zu').replace(/wo/g,'o');
+const ok=(a,b)=>norm(a)===norm(b);
+const set=h=>{app.innerHTML=h;scrollTo(0,0)};
+const LV=[
+["1","เรียนตัวอักษร","ไล่เสียง a i u e o ทีละแถว + พิมพ์โรมันจิ",()=>learn(BASIC,menu)],
+["2","เทสตัวอักษร","ครบ "+ALL.length+" ตัว",()=>quiz({items:ALL.map(x=>({big:x.k,a:x.r})),title:"เทสตัวอักษร",done:menu})],
+["3","เทสคำศัพท์","30 ข้อ: ฮิรางานะ + คำแปล",()=>quiz({items:VOC.map(x=>({big:x.k,sub:x.t,a:x.r})),title:"เทสคำศัพท์",done:menu,sm:1})],
+["4","เสียงขุ่น / กึ่งขุ่น","เต็นเต็น ゛ และ มารุ ゜",()=>learn(DAK,menu)],
+["5","เทสเสียงเปลี่ยน","ครบ "+ALLD.length+" ตัว",()=>quiz({items:ALLD.map(x=>({big:x.k,a:x.r})),title:"เทสเสียงขุ่น",done:menu})],
+["6","วาดตัวอักษร","เห็นโรมันจิ แล้ววาดตอบ ("+(ALL.length+ALLD.length)+" ข้อ)",()=>draw()],
+["7","เสียงซ้อน っ","ตัวเล็ก tsu/shi ต่อท้าย + เทสคำศัพท์",()=>tsu()],
+["8","ประโยคชีวิตประจำวัน","100 ข้อ พิมพ์โรมันจิตามประโยค",()=>quiz({items:SEN.map(x=>({big:x.k,sub:x.t,a:x.r})),title:"ประโยคประจำวัน",done:menu,sm:1})]];
+const SK={0:1,3:4,6:'t'};
+function menu(){document.onkeydown=null;set(LV.map((l,i)=>`<div class="lv" data-i="${i}"><b>${l[0]}</b><div style="flex:1"><strong>${l[1]}</strong><span>${l[2]}</span></div>${i in SK?`<button class="b g sk" data-s="${i}" style="margin:0;padding:8px 14px;font-size:.95rem">ข้ามไปเทส</button>`:''}</div>`).join(''));
+app.querySelectorAll('.lv').forEach(b=>b.onclick=()=>LV[b.dataset.i][3]());
+app.querySelectorAll('.sk').forEach(b=>b.onclick=e=>{e.stopPropagation();const k=SK[b.dataset.s];k==='t'?tsuQ():LV[k][3]()})}
+const hdr=(l,r)=>`<div class="top"><a id="hm">← เมนู</a><span>${l}</span></div>${r!=null?`<div class="bar"><i style="width:${r}%"></i></div>`:''}`;
+function baseNote(g){const b=g.b,f=BASIC[b.row].i[0],t=g.i[0];
+return `<div class="note base"><div class="eq">เสียงตั้งต้น <span class="jp">${f.k}</span> (${f.r}) <b>+ ${b.mk}</b> → <span class="jp">${t.k}</span> (${t.r})</div>${b.mn} <span class="jp">${b.mk}</span> ทำให้พยัญชนะ <b>${b.f}</b> เปลี่ยนเป็น <b>${b.to}</b> · สระยังเหมือนเดิม (a i u e o)${b.x?'<br>'+b.x:''}</div>`}
+function learn(G,fin,n=0){const g=G[n];
+set(hdr(`${g.t} (${n+1}/${G.length})`)+`<div class="card"><div class="grid" style="grid-template-columns:repeat(${g.i.length>3?5:3},1fr)">${g.i.map((x,j)=>`<div class="cell"><div class="jp">${x.k}</div><small>${x.r}</small>${g.b?`<span class="bs"><span class="jp">${BASIC[g.b.row].i[j].k}</span> ${BASIC[g.b.row].i[j].r} <b>+ ${g.b.mk}</b></span>`:''}</div>`).join('')}</div>${g.b?baseNote(g):''}<p class="sub">จำให้ได้ แล้วลองพิมพ์ตอบ</p><button class="b" id="go">เริ่มฝึกพิมพ์</button></div>`);
+$('hm').onclick=menu;$('go').onclick=()=>quiz({items:g.i.map(x=>({big:x.k,a:x.r})),title:g.t,ordered:1,done:()=>n+1<G.length?learn(G,fin,n+1):fin(),next:n+1<G.length?"แถวต่อไป →":"จบ level"})}
+function quiz(o){let L=o.ordered?o.items:shuf(o.items),i=0,sc=0,bad=[],dn=0;
+function show(){if(i>=L.length)return end();const it=L[i];dn=0;
+set(hdr(o.title+` · ${i+1}/${L.length}`,i/L.length*100)+`<div class="card"><div class="big ${o.sm||it.big.length>2?'s':''}">${it.big}</div><div class="sub">${it.sub||''}</div><input id="in" autocomplete="off" autocapitalize="off" placeholder="พิมพ์โรมันจิ (เปลี่ยนคีย์บอร์ดเป็น EN)" lang="en" inputmode="latin" spellcheck="false"><div id="fb"></div><button class="b" id="bt">ตรวจ</button></div>`);
+$('hm').onclick=menu;$('in').focus();
+const go=()=>{if(dn){i++;return show()}const r=ok($('in').value,it.a);dn=1;if(r)sc++;else bad.push(it);
+$('fb').innerHTML=r?'<span class="good">✓ ถูกต้อง!</span>':`<span class="bad">✗ คำตอบ: ${it.a}</span>`;$('in').disabled=1;$('bt').textContent='ต่อไป';$('bt').focus()};
+$('bt').onclick=go;document.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();go()}}}
+function end(){document.onkeydown=null;const p=Math.round(sc/L.length*100);
+set(hdr(o.title)+`<div class="card"><div class="big">${p>=80?'🎉':'💪'}</div><h2>${sc} / ${L.length} (${p}%)</h2>${bad.length?`<div class="note">ที่ผิด: ${bad.map(b=>`<span class="jp">${b.big}</span>=${b.a}`).join(' · ')}</div>`:''}
+<button class="b" id="a1">${o.next||'เมนู'}</button>${bad.length?'<button class="b g" id="a2">ทำข้อที่ผิดซ้ำ</button>':''}<button class="b g" id="a3">ทำใหม่</button></div>`);
+$('hm').onclick=menu;$('a1').onclick=o.done;$('a3').onclick=()=>quiz(o);if(bad.length)$('a2').onclick=()=>quiz({...o,items:bad,ordered:0,done:o.done})}
+show()}
+function draw(){const L=shuf([...ALL,...ALLD]);let i=0,sc=0;
+function show(){if(i>=L.length){set(hdr('วาดตัวอักษร')+`<div class="card"><div class="big">🖌️</div><h2>${sc} / ${L.length}</h2><button class="b" id="m">เมนู</button></div>`);$('hm').onclick=$('m').onclick=menu;return}
+const it=L[i];set(hdr(`วาดตัวอักษร · ${i+1}/${L.length}`,i/L.length*100)+`<div class="card"><div class="sub">วาดตัวที่อ่านว่า</div><div class="big" style="font-family:inherit;font-size:3rem">${it.r}</div><canvas id="cv" width="520" height="520"></canvas><div id="ans" class="big" style="margin:0;visibility:hidden">${it.k}</div><div id="ctl"><button class="b g" id="cl">ล้าง</button><button class="b" id="sh">ดูเฉลย</button></div></div>`);
+$('hm').onclick=menu;const c=$('cv'),x=c.getContext('2d');x.lineWidth=16;x.lineCap=x.lineJoin='round';x.strokeStyle=getComputedStyle(document.body).color;let d=0;
+const pt=e=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)*520/r.width,(e.clientY-r.top)*520/r.height]};
+c.onpointerdown=e=>{d=1;c.setPointerCapture(e.pointerId);x.beginPath();x.moveTo(...pt(e))};c.onpointermove=e=>{if(d){x.lineTo(...pt(e));x.stroke()}};c.onpointerup=()=>d=0;
+$('cl').onclick=()=>x.clearRect(0,0,520,520);
+$('sh').onclick=()=>{$('ans').style.visibility='visible';$('ctl').innerHTML='<div class="sub">เทียบกับเฉลย วาดถูกไหม?</div><button class="b" id="y">ถูก</button><button class="b g" id="n">ผิด</button>';$('y').onclick=()=>{sc++;i++;show()};$('n').onclick=()=>{i++;show()}}}
+show()}
+function tsu(){set(hdr('เสียงซ้อน っ')+`<div class="card"><div class="big">っ</div><div class="note">っ ตัวเล็ก (<b>sokuon</b>) ไม่ออกเสียงเอง แต่ให้ <b>หยุดสั้นๆ แล้ว “ซ้อน” พยัญชนะตัวถัดไป</b><ul>
+<li>きって → ki<b>t</b>te (ซ้อน t)</li><li>ざっし → za<b>s</b>shi (ซ้อน s : っ + し = sshi)</li><li>がっこう → ga<b>k</b>kou (ซ้อน k)</li><li>いっぱい → i<b>p</b>pai (ซ้อน p)</li></ul>
+กฎ: ดูตัวที่ตามหลัง っ แล้วพิมพ์พยัญชนะตัวแรกซ้ำสองครั้ง เช่น っち → tchi, っつ → ttsu<br>ตัว <b>つ</b> ปกติอ่านว่า tsu (ใหญ่) ส่วน <b>っ</b> ตัวเล็กคือเสียงซ้อน</div>
+<button class="b" id="go">เริ่มเทส</button></div>`);$('hm').onclick=menu;
+$('go').onclick=tsuQ}
+const tsuQ=()=>quiz({items:TSU.map(x=>({big:x.k,sub:x.t,a:x.r})),title:'เทสเสียงซ้อน っ',done:menu});
+menu();
+</script></body></html>
